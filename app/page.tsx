@@ -142,7 +142,7 @@ const LaunchPage = () => {
             mb: 4,
           }}
         >
-          AI-powered <b>listing creation</b> & <b>recommendations</b>
+          AI-powered <b>listing creation</b> & <b>recommendations </b>
           <br className="hidden sm:block" />
           to effortlessly boost your sales and optimize your store!
         </Typography>
