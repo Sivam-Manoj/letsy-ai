@@ -22,8 +22,10 @@ const gradientAnimation = keyframes`
 `;
 
 const LaunchPage = () => {
-  const launchDate = new Date();
-  launchDate.setDate(launchDate.getDate() + 30); // 30 days countdown
+  // Fixed launch date of March 8, 2025
+  const launchDate = new Date('2025-03-08T00:00:00');
+  const endDate = new Date(launchDate);
+  endDate.setDate(launchDate.getDate() + 30); // Set 30 days after the start date
 
   const faqData = [
     {
@@ -177,7 +179,7 @@ const LaunchPage = () => {
             Launching in:
           </Typography>
           <Countdown
-            date={launchDate}
+            date={endDate}
             renderer={({ days, hours, minutes, seconds }) => (
               <Box
                 sx={{
