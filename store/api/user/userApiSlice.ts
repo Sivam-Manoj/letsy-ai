@@ -1,6 +1,7 @@
 import apiSlice from "../apiSlice";
 
 const api_endpoints = "/user";
+const security_endpoints = "/security";
 
 const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -20,7 +21,7 @@ const userApiSlice = apiSlice.injectEndpoints({
     }),
     createVerifyApi: builder.mutation({
         query: (data) => ({
-          url: `${api_endpoints}/verify`,
+          url: `${security_endpoints}/verify`,
           method: "POST",
           body: data,
         }),
