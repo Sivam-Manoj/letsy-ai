@@ -18,7 +18,7 @@ const userApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
-    createverifyApi: builder.mutation({
+    createVerifyApi: builder.mutation({
         query: (data) => ({
           url: `${api_endpoints}/verify`,
           method: "POST",
@@ -28,5 +28,5 @@ const userApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useCreateLoginApiMutation, useCreateRegisterApiMutation } =
+export const { useCreateLoginApiMutation, useCreateRegisterApiMutation,useCreateVerifyApiMutation } =
   userApiSlice;
