@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link';
 import React from 'react'
 import { useForm, SubmitHandler, FieldValues } from 'react-hook-form'
 
@@ -99,7 +100,7 @@ const SignUp = () => {
 
         {/* Sign in Link */}
         <p className="text-sm text-center">
-          Already have an account? <a href="/sign-in" className="text-blue-500 underline">Sign In</a>
+          Already have an account? <Link href="/sign-in" className="text-blue-500 underline">Sign In</Link>
         </p>
       </form>
     </div>

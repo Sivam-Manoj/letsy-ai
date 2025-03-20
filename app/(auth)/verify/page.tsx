@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link';
 import React from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
@@ -43,7 +44,7 @@ const VerificationCode = () => {
 
         {/* Sign In Link */}
         <p className="text-sm text-center">
-          Go Back to <a href="/sign-in" className="text-blue-500 underline">Sign In</a>
+          Go Back to <Link href="/sign-in" className="text-blue-500 underline">Sign In</Link>
         </p>
       </form>
     </div>
