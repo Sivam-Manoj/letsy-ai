@@ -1,19 +1,32 @@
 'use client';
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 interface FormData {
-  verificationCode: string;
+  email: string;
 }
 
-const VerificationCode = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+const UpdatePassword = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>();
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log(data);
-    // Handle verification logic here
+  const router = useRouter();
+
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
+    try {
+      console.log("Password reset for:", data.email);
+    //   toast.success("Password reset link sent to your email.");
+    //   router.push("/sign-in");
+    } catch (error) {
+      console.error("Error:", error);
+    //   toast.error("Failed to send reset email. Try again.");
+    }
   };
 
   return (
@@ -23,27 +36,27 @@ const VerificationCode = () => {
           Letsy AI
         </h2>
         <h3 className="text-2xl font-bold text-center text-gray-800 mb-4">
-          Verify Code
+          Update Password
         </h3>
         <p className="text-center text-gray-600 mb-6">
-          Enter the code sent to your email.
+          Enter your email to receive a reset link.
         </p>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          {/* Verification Code Input */}
+          {/* Email Input */}
           <div>
-            <label htmlFor="verificationCode" className="block text-lg font-semibold text-gray-700">
-              Verification Code
+            <label htmlFor="email" className="block text-lg font-semibold text-gray-700">
+              Email
             </label>
             <input
-              id="verificationCode"
-              type="text"
-              {...register("verificationCode", { required: "Verification Code is required" })}
-              placeholder="Enter your code"
+              id="email"
+              type="email"
+              {...register("email", { required: "Email is required" })}
+              placeholder="Enter your email"
               className="mt-2 p-4 w-full text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white shadow-sm placeholder-gray-400"
             />
-            {errors.verificationCode && (
-              <p className="text-red-500 text-sm mt-1">{errors.verificationCode.message}</p>
+            {errors.email && (
+              <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
             )}
           </div>
 
@@ -52,7 +65,7 @@ const VerificationCode = () => {
             type="submit"
             className="w-full py-3 rounded-xl font-bold text-lg bg-gradient-to-r from-orange-500 to-red-600 text-white shadow-lg transition transform hover:scale-105 active:scale-95 hover:shadow-xl"
           >
-            Verify
+            Send Reset Link
           </button>
         </form>
 
@@ -68,4 +81,4 @@ const VerificationCode = () => {
   );
 };
 
-export default VerificationCode;
+export default UpdatePassword;
