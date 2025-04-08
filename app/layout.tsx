@@ -4,6 +4,9 @@ import './globals.css';
 import { Provider } from "react-redux";
 import { store } from "@/store/store";
 import { ReduxProvider } from '@/components/ReduxProvider';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import NavbarWrapper from '@/components/navbar/NavbarWrapper';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -33,15 +36,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        {/* Add SVG favicon */}
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-      </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <ReduxProvider>{children}</ReduxProvider>
+    <html lang="en">
+      <body className={`${geistSans.variable} ${geistMono.variable} bg-gray-100`}>
+        <div className="h-screen flex">
+          {/* Sidebar/Navbar */}
+          <NavbarWrapper />
+
+          {/* Main Content */}
+          <main className="flex-1 overflow-auto">
+            <ReduxProvider>{children}</ReduxProvider>
+          </main>
+        </div>
+
+        {/* Toastify Container */}
+        <ToastContainer position="top-right" autoClose={5000} hideProgressBar />
       </body>
     </html>
   );
