@@ -2,7 +2,17 @@
 
 import { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { FaCloudUploadAlt, FaImage, FaSave, FaMagic } from 'react-icons/fa';
+import { FaCloudUploadAlt, FaSave, FaMagic, FaHistory } from 'react-icons/fa';
+import Image from 'next/image';
+
+// Define a type for history items
+interface HistoryItem {
+  id: string;
+  title: string;
+  date: string;
+  imageUrl: string;
+  price: string;
+}
 
 const Dashboard = () => {
   const [files, setFiles] = useState<File[]>([]);
@@ -12,6 +22,23 @@ const Dashboard = () => {
   const [metaTypes, setMetaTypes] = useState('');
   const [metaDescription, setMetaDescription] = useState('');
   const [suggestedPrice, setSuggestedPrice] = useState('');
+  
+  const [history] = useState<HistoryItem[]>([
+    {
+      id: '1',
+      title: 'Vintage Wooden Clock',
+      date: '2023-06-15',
+      imageUrl: 'https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+      price: '$29.99'
+    },
+    {
+      id: '2',
+      title: 'Handmade Ceramic Vase',
+      date: '2023-06-10',
+      imageUrl: 'https://images.unsplash.com/photo-1612198188060-c7c2a3b66eae?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+      price: '$24.99'
+    },
+  ]);
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     setFiles(acceptedFiles);
@@ -136,7 +163,14 @@ const Dashboard = () => {
             <input {...getInputProps()} />
             {preview ? (
               <div className="space-y-4">
-                <img src={preview} alt="Preview" className="max-h-48 mx-auto rounded-lg" />
+                <div className="relative w-full h-48">
+                  <Image
+                    src={preview}
+                    alt="Preview"
+                    fill
+                    className="object-contain rounded-lg"
+                  />
+                </div>
                 <p className="text-sm text-gray-600">Click or drag to replace</p>
               </div>
             ) : (
@@ -186,8 +220,63 @@ const Dashboard = () => {
             className="w-full py-3 bg-gradient-to-r from-orange-500 to-red-600 text-white rounded-lg font-semibold hover:from-orange-600 hover:to-red-700 transition-colors flex items-center justify-center gap-2"
           >
             <FaMagic />
-            Generate 
+            Generate
           </button>
+        </div>
+      </div>
+      
+      {/* History Section */}
+      <div className="mt-12">
+        <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2 mb-6">
+          <FaHistory className="text-orange-500" />
+          Previous Generated History
+        </h2>
+        
+        <div className="bg-white rounded-lg shadow-md overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Product
+                  </th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Date
+                  </th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Price
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {history.map((item) => (
+                  <tr key={item.id} className="hover:bg-gray-50">
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="flex items-center">
+                        <div className="h-10 w-10 flex-shrink-0 relative">
+                          <Image
+                            src={item.imageUrl}
+                            alt={item.title}
+                            fill
+                            className="rounded-full object-cover"
+                          />
+                        </div>
+                        <div className="ml-4">
+                          <div className="text-sm font-medium text-gray-900">{item.title}</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-500">{item.date}</div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm font-semibold text-orange-500">{item.price}</div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

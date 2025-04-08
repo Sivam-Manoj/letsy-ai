@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-
 import { toast } from 'react-toastify';
 
 interface FormData {
@@ -17,6 +16,11 @@ const SignIn = () => {
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
     console.log(data);
+    // Add toast notification for form submission
+    toast.success('Sign in successful!', {
+      position: 'top-right',
+      autoClose: 3000,
+    });
   }
 
   return (

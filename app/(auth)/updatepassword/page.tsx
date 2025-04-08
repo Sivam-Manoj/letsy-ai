@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 interface FormData {
   email: string;
@@ -21,11 +22,11 @@ const UpdatePassword = () => {
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     try {
       console.log("Password reset for:", data.email);
-    //   toast.success("Password reset link sent to your email.");
-    //   router.push("/sign-in");
+      toast.success("Password reset link sent to your email.");
+      router.push("/sign-in");
     } catch (error) {
       console.error("Error:", error);
-    //   toast.error("Failed to send reset email. Try again.");
+      toast.error("Failed to send reset email. Try again.");
     }
   };
 
